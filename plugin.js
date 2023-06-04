@@ -4,7 +4,7 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 04.06.2023 17:32:56
+ * Last Modified: 04.06.2023 19:10:33
  * Modified By: 3urobeat
  */
 
@@ -13,7 +13,6 @@ let logger = require("output-logger");
 
 const PluginSystem  = require("../../src/pluginSystem/pluginSystem.js"); // eslint-disable-line
 const pluginPackage = require("./package.json"); // eslint-disable-line
-const pluginConfig  = require("./config.json"); // eslint-disable-line
 
 
 /**
@@ -38,7 +37,9 @@ module.exports = Plugin;
 /**
  * This function will be called by the plugin loader after updating but before logging in. Initialize your plugin here.
  */
-Plugin.prototype.load = function() {
+Plugin.prototype.load = async function() {
+    this.pluginConfig = await this.sys.loadPluginConfig(pluginPackage.name); // Load your config
+
     logger("info", "Hello World!"); // Log something for example. This will be logged instantly but only appear after ready because of the readyafterlogs system.
 
     // Example of adding a command that will respond with "Hello World!" on "hello" or "cool-alias"
