@@ -1,0 +1,9 @@
+{
+    "name": "steam-comment-bot-template",
+    "version": "1.0.0",
+    "description": "This is a steam-comment-service-bot template plugin to help you create your own.",
+    "dependencies": {},
+    "author": "3urobeat",
+    "license": "MIT",
+    "main": "plugin.js"
+}
