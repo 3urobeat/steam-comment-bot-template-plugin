@@ -4,7 +4,7 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 04.06.2023 19:10:33
+ * Last Modified: 04.06.2023 19:21:13
  * Modified By: 3urobeat
  */
 
@@ -42,6 +42,11 @@ Plugin.prototype.load = async function() {
 
     logger("info", "Hello World!"); // Log something for example. This will be logged instantly but only appear after ready because of the readyafterlogs system.
 
+    
+    // Write some data to a test file for example. You should handle errors here of course
+    await this.sys.writePluginData(pluginPackage.name, "test.txt", "Random test data\nwhich should be stored in this file!");
+
+
     // Example of adding a command that will respond with "Hello World!" on "hello" or "cool-alias"
     this.commandHandler.registerCommand({
         names: ["hello", "cool-alias"],
@@ -59,9 +64,15 @@ Plugin.prototype.load = async function() {
 /**
  * This function will be called when the bot is ready (aka all accounts were logged in).
  */
-Plugin.prototype.ready = function() {
+Plugin.prototype.ready = async function() {
 
     logger("info", "I am the plugin and we seem to be ready!");
+
+
+    // Read the data we previously wrote in load()
+    let testData = await this.sys.loadPluginData(pluginPackage.name, "test.txt");
+    logger("info", "Template Plugin: Read what we just wrote: " + testData);
+
 
     // Example of pretending the first owner used the '!ping' command
     let firstOwnerSteamID = this.data.cachefile.ownerid[0]; // Get first ownerid from cache to make sure it was converted to a steamID64
