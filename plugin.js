@@ -4,14 +4,14 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 04.06.2023 19:21:13
+ * Last Modified: 21.06.2023 18:59:13
  * Modified By: 3urobeat
  */
 
 
 let logger = require("output-logger");
 
-const PluginSystem  = require("../../src/pluginSystem/pluginSystem.js"); // eslint-disable-line
+const PluginSystem  = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
 const pluginPackage = require("./package.json"); // eslint-disable-line
 
 
