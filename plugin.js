@@ -4,14 +4,16 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 21.06.2023 18:59:13
+ * Last Modified: 29.06.2023 21:30:21
  * Modified By: 3urobeat
  */
 
 
 let logger = require("output-logger");
 
-const PluginSystem  = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
+// Note: This path will break when the plugin is loaded. Use it only while developing using 'npm link' for IntelliSense as described here: https://github.com/HerrEurobeat/steam-comment-service-bot/blob/master/docs/wiki/creating_plugins.md#additional-information
+//const PluginSystem = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
+
 const pluginPackage = require("./package.json"); // eslint-disable-line
 
 
@@ -55,6 +57,9 @@ Plugin.prototype.load = async function() {
 
         run: (commandHandler, args, steamID64, respondModule, context, resInfo) => {
             respondModule(context, resInfo, "Hello world!");
+
+            // Example of using the delete function to delete the test.txt we created earlier again
+            this.sys.deletePluginData(pluginPackage.name, "test.txt")
         }
     });
 };
@@ -81,6 +86,13 @@ Plugin.prototype.ready = async function() {
     // Note: This does seem to throw a RateLimitExceeded error which even a large delay doesn't fix. The retry works however. Idk, I think Steam might be at fault. // TODO: or is this a context related problem?
 
 };
+
+
+/**
+ * This function is called when the !reload command is executed
+ * This plugin doesn't really have anything that needs to be unloaded (for example shutting down a webserver) but including an empty function will suppress a warning.
+ */
+Plugin.prototype.unload = function () {};
 
 
 const Bot = require("../../src/bot/bot.js"); // eslint-disable-line
