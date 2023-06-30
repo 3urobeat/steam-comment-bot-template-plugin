@@ -4,14 +4,14 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 29.06.2023 21:30:21
+ * Last Modified: 30.06.2023 10:18:56
  * Modified By: 3urobeat
  */
 
 
 let logger = require("output-logger");
 
-// Note: This path will break when the plugin is loaded. Use it only while developing using 'npm link' for IntelliSense as described here: https://github.com/HerrEurobeat/steam-comment-service-bot/blob/master/docs/wiki/creating_plugins.md#additional-information
+// Note: This path will break when the plugin is loaded. Use it only while developing using 'npm link' for IntelliSense as described here: https://github.com/3urobeat/steam-comment-service-bot/blob/master/docs/wiki/creating_plugins.md#additional-information
 //const PluginSystem = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
 
 const pluginPackage = require("./package.json"); // eslint-disable-line
