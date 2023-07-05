@@ -5,6 +5,10 @@
     "dependencies": {
         "output-logger": "^2.3.6"
     },
+    "devDependencies": {
+        "eslint": "^8.44.0",
+        "eslint-plugin-jsdoc": "^46.4.3"
+    },
     "author": "3urobeat",
     "license": "MIT",
     "main": "plugin.js"

@@ -4,7 +4,7 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 30.06.2023 10:18:56
+ * Last Modified: 05.07.2023 09:44:59
  * Modified By: 3urobeat
  */
 
@@ -12,7 +12,7 @@
 let logger = require("output-logger");
 
 // Note: This path will break when the plugin is loaded. Use it only while developing using 'npm link' for IntelliSense as described here: https://github.com/3urobeat/steam-comment-service-bot/blob/master/docs/wiki/creating_plugins.md#additional-information
-//const PluginSystem = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
+// const PluginSystem = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
 
 const pluginPackage = require("./package.json"); // eslint-disable-line
 
@@ -44,7 +44,7 @@ Plugin.prototype.load = async function() {
 
     logger("info", "Hello World!"); // Log something for example. This will be logged instantly but only appear after ready because of the readyafterlogs system.
 
-    
+
     // Write some data to a test file for example. You should handle errors here of course
     await this.sys.writePluginData(pluginPackage.name, "test.txt", "Random test data\nwhich should be stored in this file!");
 
@@ -59,7 +59,7 @@ Plugin.prototype.load = async function() {
             respondModule(context, resInfo, "Hello world!");
 
             // Example of using the delete function to delete the test.txt we created earlier again
-            this.sys.deletePluginData(pluginPackage.name, "test.txt")
+            this.sys.deletePluginData(pluginPackage.name, "test.txt");
         }
     });
 };
@@ -114,7 +114,7 @@ Plugin.prototype.statusUpdate = function(bot, oldStatus, newStatus) {
 /**
  * Called when a Steam Guard Code is requested for a bot account
  * @param {Bot} bot The bot object of the affected account
- * @param {function(string)} submitCode Function to submit a code. Pass an empty string to skip the account.
+ * @param {function(string): void} submitCode Function to submit a code. Pass an empty string to skip the account.
  */
 Plugin.prototype.steamGuardInput = function(bot, submitCode) { // eslint-disable-line
 
