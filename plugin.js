@@ -4,7 +4,7 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 05.07.2023 17:41:36
+ * Last Modified: 2024-05-01 15:20:10
  * Modified By: 3urobeat
  */
 
@@ -129,5 +129,26 @@ Plugin.prototype.steamGuardInput = function(bot, submitCode) { // eslint-disable
 
     // ...or skip the account like this:
     // submitCode("");
+
+    // Observe the 'statusUpdate' event to detect if the login request was already resolved from somewhere else
+
+};
+
+
+/**
+ * Called when a login using a QR-Code was started
+ * @param {Bot} bot The bot object of the affected account
+ * @param {string} challengeUrl The QrCode Challenge URL supplied by Steam. Display this value using a QR-Code parser and let a user scan it using their Steam Mobile App.
+ */
+Plugin.prototype.steamGuardQrCode = function(bot, challengeUrl) { // eslint-disable-line
+
+    logger("info", `Templage Plugin: Bot with index ${bot.index} needs their QR-Code to be scanned to log in!`, false, false, null, true); // Force log this message now with the last parameter
+
+    // ...you could now display the QR-Code (for example in a web interface if you are working on one)
+
+    // The qrcode (https://www.npmjs.com/package/qrcode) library can for example parse the challengeUrl into a scannable QR-Code:
+    // qrcode.toString(challengeUrl, (err, string) => { ...
+
+    // Observe the 'statusUpdate' event to detect if the login request was already resolved from somewhere else
 
 };
