@@ -4,7 +4,7 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 2024-05-01 15:20:10
+ * Last Modified: 2024-05-17 22:59:51
  * Modified By: 3urobeat
  */
 
@@ -84,7 +84,16 @@ Plugin.prototype.ready = async function() {
     // Example of pretending the first owner used the '!ping' command
     let firstOwnerSteamID = this.data.cachefile.ownerid[0]; // Get first ownerid from cache to make sure it was converted to a steamID64
 
-    this.commandHandler.runCommand("ping", [], firstOwnerSteamID, this.controller.main.sendChatMessage, this.controller.main, { steamID64: firstOwnerSteamID });
+    this.commandHandler.runCommand(
+        "ping",                               // Name of the command to run
+        [],                                   // Arguments provided by the user (ping does not take any in this case), Check the commands documentation to see which cmd takes which arguments: https://github.com/3urobeat/steam-comment-service-bot/blob/master/docs/wiki/commands_doc.md
+        this.controller.main.sendChatMessage, // The function that should handle sending the reponse. In this case we can simply use sendChatMessage(), implemented by the bot itself, to send a Steam Chat message
+        this.controller.main,                 // Context (`this.`) used inside the respondModule function (sendChatMessage() in this case). The bot implements sendChatMessage() inside the Bot class and it expects to be called from there, which is why we pass the main bot account here. This will lead to the first bot account being used to send the message.
+        {
+            userID: firstOwnerSteamID,        // resInfo object, containing additional information for `respondModule` about the response to send, as outlined in the typedef. This userID specifies where sendChatMessage() should send the response to.
+            fromSteamChat: true               // Used in this scenario to signal the bot that the userID is in fact a SteamID to suppress a warning. The bot checks if you attempt to run a command without providing ownerIDs, as that will bypass any and all owner privilege checks.
+        }                                     // Check out the typedef (which your IntelliSense should show, or open `commandHandler.js` from the Bot's codebase) for more information about the resInfo parameter.
+    );
     // Note: This does seem to throw a RateLimitExceeded error which even a large delay doesn't fix. The retry works however. Idk, I think Steam might be at fault. // TODO: or is this a context related problem?
 
 };
