@@ -4,7 +4,7 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 2024-05-17 22:59:51
+ * Last Modified: 2025-01-11 16:58:46
  * Modified By: 3urobeat
  */
 
@@ -12,8 +12,8 @@
 let logger = require("output-logger");
 
 // Note: These paths will break when the plugin is loaded. Use them only while developing using 'npm link' for IntelliSense as described here: https://github.com/3urobeat/steam-comment-service-bot/blob/master/docs/wiki/creating_plugins.md#additional-information
-const PluginSystem = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
-const Bot          = require("../steam-comment-service-bot/src/bot/bot.js");                   // eslint-disable-line
+//const PluginSystem = require("../steam-comment-service-bot/src/pluginSystem/pluginSystem.js"); // eslint-disable-line
+//const Bot          = require("../steam-comment-service-bot/src/bot/bot.js");                   // eslint-disable-line
 // Do not forget to comment them out when publishing your plugin!
 
 const pluginPackage = require("./package.json"); // eslint-disable-line
@@ -159,5 +159,18 @@ Plugin.prototype.steamGuardQrCode = function(bot, challengeUrl) { // eslint-disa
     // qrcode.toString(challengeUrl, (err, string) => { ...
 
     // Observe the 'statusUpdate' event to detect if the login request was already resolved from somewhere else
+
+};
+
+
+/**
+ * Called when DataManager is instructed to import a file from the disk or export a DataManager property to it. On data export `oldData` will always be `null`.
+ * @param {string} key Which DataManager key got updated
+ * @param {any} oldData Old content of the updated key
+ * @param {any} newData New content of the updated key
+ */
+Plugin.prototype.dataUpdate = function(key, oldData, newData) { // eslint-disable-line
+
+    logger("info", `Templage Plugin: DataManager property '${key}' got updated.`, false, false, null, true); // Force log this message now with the last parameter
 
 };
