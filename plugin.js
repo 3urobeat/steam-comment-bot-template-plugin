@@ -4,7 +4,7 @@
  * Created Date: 25.02.2022 09:37:57
  * Author: 3urobeat
  *
- * Last Modified: 2025-01-11 16:58:46
+ * Last Modified: 2025-02-04 12:17:31
  * Modified By: 3urobeat
  */
 
@@ -84,7 +84,7 @@ Plugin.prototype.ready = async function() {
     // Example of pretending the first owner used the '!ping' command
     let firstOwnerSteamID = this.data.cachefile.ownerid[0]; // Get first ownerid from cache to make sure it was converted to a steamID64
 
-    this.commandHandler.runCommand(
+    const runResponse = await this.commandHandler.runCommand(
         "ping",                               // Name of the command to run
         [],                                   // Arguments provided by the user (ping does not take any in this case), Check the commands documentation to see which cmd takes which arguments: https://github.com/3urobeat/steam-comment-service-bot/blob/master/docs/wiki/commands_doc.md
         this.controller.main.sendChatMessage, // The function that should handle sending the reponse. In this case we can simply use sendChatMessage(), implemented by the bot itself, to send a Steam Chat message
@@ -96,6 +96,10 @@ Plugin.prototype.ready = async function() {
     );
     // Note: This does seem to throw a RateLimitExceeded error which even a large delay doesn't fix. The retry works however. Idk, I think Steam might be at fault. // TODO: or is this a context related problem?
 
+    // Check whether runCommand declined the request instantly. The respondModule parameter (where we provided 'this.controller.main.sendChatMessage' above) won't ever be called, as only a command itself will use it to communicate back.
+    if (!runResponse.success) {
+        logger("error", `Template Plugin: Failed to run command '!ping'! Reason: '${runResponse.reason}' | Message: '${runResponse.message}'`);
+    }
 };
 
 
