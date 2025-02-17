@@ -1,6 +1,6 @@
 {
     "name": "steam-comment-bot-template",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "botVersion": "2.16.0",
     "description": "This is a steam-comment-service-bot template plugin to help you create your own.",
     "dependencies": {
